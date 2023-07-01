@@ -14,6 +14,10 @@ class ImageGalleryItem extends Component {
     }));
   };
 
+  resetImages = () => {
+    this.setState({ images: [] });
+  };
+
   render() {
     const { id, webformatURL, alt, largeImageURL } = this.props;
     const { showModal } = this.state;

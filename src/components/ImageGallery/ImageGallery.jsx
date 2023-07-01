@@ -18,26 +18,30 @@ class ImageGallery extends Component {
     const nextPage = this.props.page;
 
     if (prevName !== nextName || prevPage !== nextPage) {
-      this.setState({ status: 'pending' });
-
-      fetch(
-        `https://pixabay.com/api/?q=${nextName}&page=${nextPage}&key=36119540-6b0ed103a080a17c105931ea0&image_type=photo&orientation=horizontal&per_page=12`
-      )
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-        })
-        .then(imagesData => {
-          const { hits, totalHits } = imagesData;
-          this.setState(prevState => ({
-            images: [...prevState.images, ...hits],
-            status: 'resolved',
-          }));
-          this.props.onImagesData(hits, totalHits);
-        });
+      this.fetchImages(nextName, nextPage);
     }
   }
+
+  fetchImages = (searchQuery, page) => {
+    this.setState({ status: 'pending' });
+
+    fetch(
+      `https://pixabay.com/api/?q=${searchQuery}&page=${page}&key=36119540-6b0ed103a080a17c105931ea0&image_type=photo&orientation=horizontal&per_page=12`
+    )
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
+      .then(imagesData => {
+        const { hits, totalHits } = imagesData;
+        this.setState(prevState => ({
+          images: [...prevState.images, ...hits],
+          status: 'resolved',
+        }));
+        this.props.onImagesData(hits, totalHits);
+      });
+  };
 
   render() {
     const { images, status } = this.state;
@@ -76,4 +80,5 @@ ImageGallery.propTypes = {
   page: PropTypes.number.isRequired,
   onImagesData: PropTypes.func.isRequired,
 };
+
 export default ImageGallery;
