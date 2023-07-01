@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import Loader from 'components/Loader/Loader';
-import css from './ImageGallery.module.css';
+import css from './imageGallery.module.css';
 
 class ImageGallery extends Component {
   state = {
