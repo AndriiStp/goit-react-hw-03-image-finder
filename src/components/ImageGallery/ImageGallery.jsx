@@ -23,7 +23,7 @@ class ImageGallery extends Component {
   }
 
   fetchImages = (searchQuery, page) => {
-    this.setState({ status: 'pending' });
+    this.setState({ status: 'pending', images: [] });
 
     fetch(
       `https://pixabay.com/api/?q=${searchQuery}&page=${page}&key=36119540-6b0ed103a080a17c105931ea0&image_type=photo&orientation=horizontal&per_page=12`
